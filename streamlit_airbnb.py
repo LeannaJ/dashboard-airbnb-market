@@ -485,16 +485,12 @@ st.markdown("")
 st.sidebar.markdown("### 🎛️ Dashboard Controls")
 
 # Load data (try multiple possible paths)
-possible_paths = [".", "./airbnb-market-analytics", "airbnb-market-analytics"]
-city_frames = {}
-
-for path in possible_paths:
-    try:
-        city_frames = load_city_frames(path)
-        if city_frames:
-            break
-    except Exception as e:
-        continue
+# Try to load data from current directory
+try:
+    city_frames = load_city_frames(".")
+except Exception as e:
+    st.error(f"Error loading data: {e}")
+    city_frames = {}
 
 if not city_frames:
     st.error("❌ No CSV files found! Please ensure airbnb_*.csv files are in the specified folder.")
